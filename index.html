@@ -24,6 +24,34 @@
   ═══════════════════════════════════════════════════════════════
 -->
 <style>
+  html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+}
+
+#app {
+  min-height: 100dvh;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
 /* ═════════════ §19.1 — CSS custom properties (byte-identical to the spec) ═══ */
 :root{
   /* §1.1 Avetaar brand core (mode-independent) */
