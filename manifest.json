@@ -1,0 +1,23 @@
+{
+  "name": "SPIDER AI",
+  "short_name": "SPIDER",
+  "description": "SPIDER AI - Your Intelligent Assistant",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#080A10",
+  "theme_color": "#D4AF37",
+  "icons": [
+    {
+      "src": "icons/icon1.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon2.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
