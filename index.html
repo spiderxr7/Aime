@@ -13,7 +13,7 @@
 
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<title>AVETAAR AI — تجربة ذكاء اصطناعي فاخرة</title>
+<title>SPIDER AI — تجربة ذكاء اصطناعي فاخرة</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230F1510'/%3E%3Ctext x='32' y='42' font-size='34' font-family='Arial' font-weight='bold' text-anchor='middle' fill='%237ADB8F'%3EA%3C/text%3E%3C/svg%3E">
 <!--
   ═══════════════════════════════════════════════════════════════
@@ -2187,11 +2187,11 @@ function renderMsgs(){
   const c = active();
   const inner = $("#msgsInner");
   $("#chatTitle").textContent = c ? c.title : "محادثة جديدة";
-  document.title = c ? c.title + " — AVETAAR AI" : "AVETAAR AI"; // tab title follows the chat
+  document.title = c ? c.title + " — SPIDER AI" : "SPIDER AI"; // tab title follows the chat
   if (!c){
     inner.innerHTML =
       "<div class='hero rim'>" +
-      "<h1>مرحبا 👋</h1><p>أنا مساعد AVETAAR الذكي — 27 نموذج مدمج (مدى + رويند)<br>اكتب سؤالك أو جرّب أحد هذه:</p>" +
+      "<h1>مرحبا 👋</h1><p>أنا مساعد SPIDER الذكي — 27 نموذج مدمج (مدى + رويند)<br>اكتب سؤالك أو جرّب أحد هذه:</p>" +
       "<div class='chips'>" + SUGGESTIONS.map(s=>"<button class='chip'>"+esc(s)+"</button>").join("") + "</div>" +
       "</div>";
     inner.querySelectorAll(".chip").forEach((b,i)=> b.onclick = () => { $("#input").value = SUGGESTIONS[i]; autoGrow(); sendMessage(); });
