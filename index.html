@@ -3228,5 +3228,18 @@ document.addEventListener("keydown", e => {
   refreshStatus();       // provider reachability dots
 })();
 </script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", async () => {
+    try {
+      await navigator.serviceWorker.register("./sw.js");
+      console.log("SPIDER AI: Offline mode enabled");
+    } catch (error) {
+      console.error("Service Worker error:", error);
+    }
+  });
+}
+</script>
+
 </body>
 </html>
