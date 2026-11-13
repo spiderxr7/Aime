@@ -3,7 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SPIDER AI — تجربة ذكاء اصطناعي فاخرة</title>
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SPIDER AI">
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#080A10">
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>SPIDER AI —  ذكاء اصطناعي</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230F1510'/%3E%3Ctext x='32' y='42' font-size='34' font-family='Arial' font-weight='bold' text-anchor='middle' fill='%237ADB8F'%3EA%3C/text%3E%3C/svg%3E">
 <!--
   ═══════════════════════════════════════════════════════════════
@@ -15,20 +25,14 @@
 -->
 <style>
 
-html,
-body {
-  width: 100%;
+html {
   min-height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  min-height: 100dvh;
-  min-height: -webkit-fill-available;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
 }
 
 #app {
@@ -3819,3 +3823,19 @@ document.addEventListener("keydown", e => {
 }
 
 </style>
+
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", async () => {
+    try {
+      await navigator.serviceWorker.register("./sw.js");
+      console.log("SPIDER AI: Offline mode enabled");
+    } catch (error) {
+      console.error("Service Worker error:", error);
+    }
+  });
+}
+</script>
+
+  
