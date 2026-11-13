@@ -12,8 +12,8 @@
 <meta name="theme-color" content="#080A10">
 
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
-<title>SPIDER AI — تجربة ذكاء اصطناعي فاخرة</title>
+  <title>SPIDER AI —  ذكاء اصطناعي</title>
+
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230F1510'/%3E%3Ctext x='32' y='42' font-size='34' font-family='Arial' font-weight='bold' text-anchor='middle' fill='%237ADB8F'%3EA%3C/text%3E%3C/svg%3E">
 <!--
   ═══════════════════════════════════════════════════════════════
@@ -24,15 +24,34 @@
   ═══════════════════════════════════════════════════════════════
 -->
 <style>
-  /* iPhone Safe Area Fix */
-html {
+
+html,
+body {
+  width: 100%;
   min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+}
+
+#app {
+  min-height: 100dvh;
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
   box-sizing: border-box;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
 }
 /* ═════════════ §19.1 — CSS custom properties (byte-identical to the spec) ═══ */
 :root{
@@ -754,14 +773,6 @@ input,textarea{ font-family:inherit; }
 mark{ background:color-mix(in srgb, var(--primary) 35%, transparent); color:inherit; padding:0 2px; border-radius:3px; }
 .composer{ position:relative; }
 
-/* ── shortcuts dialog ── */
-.keys-list{ display:flex; flex-direction:column; gap:8px; }
-.key-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; font-size:12.5px; }
-.key-row kbd{
-  font-family:var(--font-mono); font-size:11px; direction:ltr;
-  background:var(--control-container); border:1px solid var(--rim-normal);
-  border-bottom-width:2px; padding:3px 9px; border-radius:6px; color:var(--text-primary);
-}
 .btn-ghost.danger{ color:var(--semantic-error); }
 .btn-ghost.danger:hover{ background:color-mix(in srgb, var(--semantic-error) 10%, transparent); }
 
@@ -982,6 +993,18 @@ mark{ background:color-mix(in srgb, var(--primary) 35%, transparent); color:inhe
 }
 .field input:focus,.field textarea:focus,.field select:focus{ border-color:var(--selection-border); box-shadow:0 0 0 3px var(--selection-container); }
 .field textarea{ min-height:70px; resize:vertical; }
+#dlgAbout .about-value{
+  padding:12px 14px; border:1px solid var(--divider); border-radius:var(--radius-row);
+  background:var(--control-container); color:var(--text-primary); font-weight:800; letter-spacing:.5px;
+}
+#dlgAbout .about-developer{
+  display:flex; flex-direction:column; gap:7px; padding:16px; text-align:center;
+  border:1px solid var(--selection-border); border-radius:var(--radius-card);
+  background:linear-gradient(135deg, color-mix(in srgb, var(--primary) 13%, var(--control-container)), var(--control-container));
+}
+#dlgAbout .about-developer strong{font-size:24px; letter-spacing:2px; color:var(--primary);}
+#dlgAbout .about-developer span{font-size:13px; font-weight:700; color:var(--text-primary);}
+#dlgAbout .about-developer p{margin:2px 0 0; font-size:12px; color:var(--text-secondary); line-height:1.8;}
 .dlg-actions{ display:flex; gap:10px; justify-content:flex-end; padding-top:var(--spacing-dialog-footer); border-top:1px solid var(--divider); margin-top:8px; }
 .btn-ghost{
   padding:10px 18px; background:transparent; color:var(--text-primary);
@@ -1571,8 +1594,8 @@ html, body { width:100%; min-height:100%; margin:0; }
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       </button>
       <div class="chat-search" id="chatSearch" style="display:none"><input id="chatSearchIn" type="search" placeholder="ابحث في هذه المحادثة…"></div>
-      <button class="icon-btn top-action" id="btnKeys" title="الاختصارات (?)">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 3.5"/><circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"/></svg>
+      <button class="icon-btn top-action" id="btnAbout" title="حول التطبيق والمطوّر" aria-label="حول التطبيق والمطوّر">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01" stroke-linecap="round"/></svg>
       </button>
       <div class="model-select">
         <button class="model-pill" id="modelPill">
@@ -1596,7 +1619,7 @@ html, body { width:100%; min-height:100%; margin:0; }
         </button>
         <input type="file" id="fileInput" multiple hidden
                accept="image/png,image/jpeg,image/webp,image/gif,image/heic,image/heic,image/*,.txt,.md,.py,.js,.ts,.jsx,.tsx,.json,.csv,.html,.css,.xml,.yml,.yaml,.log,.c,.cpp,.h,.java,.go,.rs,.php,.sh,.sql,.ini,.toml,.pdf">
-        <textarea id="input" rows="1" placeholder=".............اكتب رسالتك…........."></textarea>
+        <textarea id="input" rows="1" placeholder=".............اكتب رسالتك…......"></textarea>
         <button class="send-btn" id="btnSend" disabled aria-label="إرسال">
           <svg id="sendIco" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
           <svg id="stopIco" width="17" height="17" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="6" width="12" height="12" rx="2.5"/></svg>
@@ -1658,10 +1681,6 @@ html, body { width:100%; min-height:100%; margin:0; }
     <label>System Prompt (تعليمات النموذج)</label>
     <textarea id="sysPrompt"></textarea>
   </div>
-  <div class="field">
-    <label>قائمة الاختصارات</label>
-    <button class="btn-ghost" id="btnShortcuts" style="width:100%">⌨ كل الاختصارات…</button>
-  </div>
   <div class="dlg-actions">
     <button class="btn-ghost" id="btnReauth">🔑 حسابات جديدة (الاثنين)</button>
     <button class="btn-ghost" id="btnPing">📶 فحص الاتصال</button>
@@ -1671,15 +1690,24 @@ html, body { width:100%; min-height:100%; margin:0; }
     <button class="btn-ghost" id="btnCloseDlg">إغلاق</button>
   </div>
 </div>
-<div class="toasts" id="toasts"></div>
-
-<!-- shortcuts overlay -->
-<div class="scrim" id="scrimKeys"></div>
-<div class="dialog rim" id="dlgKeys" style="max-width:430px">
-  <h2>⌨ الاختصارات</h2>
-  <div class="keys-list" id="keysList"></div>
-  <div class="dlg-actions"><button class="btn-ghost" id="btnCloseKeys">إغلاق</button></div>
+<div class="scrim" id="scrimAbout"></div>
+<div class="dialog rim" id="dlgAbout" role="dialog" aria-modal="true" aria-labelledby="aboutTitle" style="max-width:430px">
+  <h2 id="aboutTitle">حول التطبيق</h2>
+  <div class="field">
+    <label>اسم التطبيق</label>
+    <div class="about-value">SPIDER AI</div>
+  </div>
+  <div class="field">
+    <label>المطوّر والمؤسس</label>
+    <div class="about-developer">
+      <strong>SPIDERXR</strong>
+      <span>المطوّر الأساسي والوحيد لهذا التطبيق</span>
+      <p>صاحب الفكرة، وله الفضل في تصميم التطبيق وبرمجته وتطويره.</p>
+    </div>
+  </div>
+  <div class="dlg-actions"><button class="btn-ghost" id="btnCloseAbout">إغلاق</button></div>
 </div>
+<div class="toasts" id="toasts"></div>
 
 <!-- jump-to-bottom + image lightbox -->
 <button class="jump-fab" id="jumpBottom" aria-label="آخر الرسائل">
@@ -1747,20 +1775,20 @@ const PROV_NAME = { chatly: "مدى", gama: "رويند" };
 // نماذج تفكير: ترسل reasoning تفصله الواجهة بلوحة «بيتفكر»
 const isThinkModel = id => /thinking|reasoning|o3|o4|xhigh|chat-high|gpt-5\.5/i.test(id);
 // ميزات القايمة: مفضلة ⭐ + عدّاد استعمال + زمن آخر رد + نماذج معطلة ⚠
-let favs = new Set(JSON.parse(localStorage.getItem("avetaar_ai_favs") || "[]"));
-let usage = JSON.parse(localStorage.getItem("avetaar_ai_usage") || "{}");
-let latMs = JSON.parse(localStorage.getItem("avetaar_ai_lat") || "{}");
-let badModels = new Set(JSON.parse(localStorage.getItem("avetaar_ai_bad") || "[]"));
-const saveFavs = () => localStorage.setItem("avetaar_ai_favs", JSON.stringify([...favs]));
-const bumpUsage = id => { usage[id] = (usage[id] || 0) + 1; localStorage.setItem("avetaar_ai_usage", JSON.stringify(usage)); };
-const setLat = (id, ms) => { latMs[id] = ms; localStorage.setItem("avetaar_ai_lat", JSON.stringify(latMs)); };
-const markBad = (id, on) => { on ? badModels.add(id) : badModels.delete(id); localStorage.setItem("avetaar_ai_bad", JSON.stringify([...badModels])); };
+let favs = new Set(JSON.parse(localStorage.getItem("spider_ai_favs") || "[]"));
+let usage = JSON.parse(localStorage.getItem("spider_ai_usage") || "{}");
+let latMs = JSON.parse(localStorage.getItem("spider_ai_lat") || "{}");
+let badModels = new Set(JSON.parse(localStorage.getItem("spider_ai_bad") || "[]"));
+const saveFavs = () => localStorage.setItem("spider_ai_favs", JSON.stringify([...favs]));
+const bumpUsage = id => { usage[id] = (usage[id] || 0) + 1; localStorage.setItem("spider_ai_usage", JSON.stringify(usage)); };
+const setLat = (id, ms) => { latMs[id] = ms; localStorage.setItem("spider_ai_lat", JSON.stringify(latMs)); };
+const markBad = (id, on) => { on ? badModels.add(id) : badModels.delete(id); localStorage.setItem("spider_ai_bad", JSON.stringify([...badModels])); };
 // suite account pattern (RIVAL-Suite-Bot RIVAL_gamma_accounts.py, byte-identical)
 function gamaGenAccount(){
   const hex = n => { const a = new Uint8Array(n); crypto.getRandomValues(a); return [...a].map(x => x.toString(16).padStart(2,"0")).join(""); };
   return { email: "r3gm_" + hex(4) + "_" + Math.floor(Date.now()/1000) + "@gmail.com", password: "R3_" + hex(8) };
 }
-const gama = { key: localStorage.getItem("avetaar_gama_key"), uid: localStorage.getItem("avetaar_gama_uid") };
+const gama = { key: localStorage.getItem("spider_gama_key"), uid: localStorage.getItem("avetaar_gama_uid") };
 function gamaExhausted(s){ s = String(s).toLowerCase(); return /401|403|unauthorized|insufficient|429|rate limit/.test(s); }
 async function ensureGama(force){
   if (!force && gama.key && gama.uid) return true;
@@ -1774,8 +1802,8 @@ async function ensureGama(force){
     throw new Error("تعذر إنشاء حساب rewind" + (r.status === 403 ? " (كلودفلاري يبلوك الشبكة — جرّب من شبكتك المنزلية)" : ""));
   }
   gama.key = j.accessToken; gama.uid = j.user.id;
-  localStorage.setItem("avetaar_gama_key", gama.key);
-  localStorage.setItem("avetaar_gama_uid", String(gama.uid));
+  localStorage.setItem("spider_gama_key", gama.key);
+  localStorage.setItem("spider_gama_uid", String(gama.uid));
   return true;
 }
 async function gamaChat(model, messages, signal){
@@ -1813,7 +1841,7 @@ async function gamaChat(model, messages, signal){
   while (!res.ok && !isModelErr && gamaExhausted(res.status + " " + res.body) && rotates < 3){
     rotates++;
     gama.key = gama.uid = null;
-    localStorage.removeItem("avetaar_gama_key"); localStorage.removeItem("avetaar_gama_uid");
+    localStorage.removeItem("spider_gama_key"); localStorage.removeItem("spider_gama_uid");
     toast(rotates === 1 ? "انتهى رصيد rewind — حساب جديد تلقائيا…"
       : "ما شاف رصيد… حساب آخر (" + rotates + "/3)", "ok");
     await ensureGama(true);
@@ -1829,16 +1857,25 @@ async function gamaChat(model, messages, signal){
   return res; // { text, thinking }
 }
 const DEFAULT_SYS = "Your role is that of a smart and creative assistant. Do not mention that you are a chatbot or AI assistant.";
+// هوية المطوّر الأساسية — مدمجة في التطبيق ولا تعتمد على System Prompt القابل للتعديل
+const APP_DEVELOPER = Object.freeze({
+  name: "SPIDERXR",
+  role: "المطوّر الأساسي والوحيد لهذا التطبيق"
+});
+function buildSystemPrompt(){
+  const credit = `معلومات ثابتة عن هذا التطبيق: المطوّر الأساسي والوحيد هو ${APP_DEVELOPER.name}. يعود إليه الفضل في فكرة التطبيق وبرمجته وتطويره. إذا سُئلت عن مطوّر التطبيق أو منشئه، اذكر ${APP_DEVELOPER.name} بوضوح.`;
+  return credit + (settings.sys ? "\n\n" + settings.sys : "");
+}
 const SUGGESTIONS = [
-  "اشرح لي مفهوم الذكاء الاصطناعي بأمثلة عراقية 😄",
+  "اشرح لي مفهوم الذكاء الاصطناعي بأمثلة 😄",
   "اكتب لي كود Python لتحميل صور من موقع",
   "خطة تسويق لموقع جديد باللغة العربية",
   "قارن بين gpt-5 و claude في البرمجة",
 ];
 
 const $ = s => document.querySelector(s);
-const LS_CHATS = "avetaar_ai_chats_v1";
-const LS_SETT  = "avetaar_ai_settings_v1";
+const LS_CHATS = "spider_ai_chats_v1";
+const LS_SETT  = "spider_ai_settings_v1";
 
 let chats = load(LS_CHATS, []);
 let settings = load(LS_SETT, { theme:"greenapple", model:"gpt-5-nano", sys:DEFAULT_SYS });
@@ -1849,7 +1886,7 @@ delete settings.provider; // legacy key: no manual provider switching anymore
 function activeModels(){ return ALL_MODELS; } // single unified picker
 function effectiveProvider(){ return modelProv(currentModel); } // per-model, not per-site
 let activeId = null;
-let token = sessionStorage.getItem("avetaar_ai_token");
+let token = sessionStorage.getItem("spider_ai_token");
 let streaming = null;   // AbortController
 let currentModel = settings.model;
 
@@ -1976,7 +2013,7 @@ async function ensureToken(force){
     const j = await r.json();
     if (!j.accessToken) throw new Error("no token");
     token = j.accessToken;
-    sessionStorage.setItem("avetaar_ai_token", token);
+    sessionStorage.setItem("spider_ai_token", token);
     setStatus("ok", "متصل");
     return true;
   }catch(e){
@@ -2216,7 +2253,7 @@ function msgEl(m){
   el.dataset.id = m.id;
   const who = document.createElement("div");
   who.className = "who";
-  who.textContent = (m.pinned ? "📌 " : "") + (m.role === "user" ? "أنت" : "AVETAAR " + (m.model || ""));
+  who.textContent = (m.pinned ? "📌 " : "") + (m.role === "user" ? "أنت" : "SPIDER " + (m.model || ""));
   const bub = document.createElement("div");
   bub.className = "bubble";
   if (m.err){
@@ -2353,11 +2390,11 @@ function actSend(instr, m, withRef){
 }
 function downloadOne(m){
   const c = active();
-  const body = (c ? "**" + c.title + "**\n\n" : "") + (m.role === "user" ? "أنت:\n\n" : "AVETAAR (" + (m.model || "?") + "):\n\n") + (m.text || "");
+  const body = (c ? "**" + c.title + "**\n\n" : "") + (m.role === "user" ? "أنت:\n\n" : "SPIDER (" + (m.model || "?") + "):\n\n") + (m.text || "");
   const blob = new Blob([body], { type: "text/markdown;charset=utf-8" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "avetaar-msg-" + (m.ts || Date.now()) + ".md";
+  a.download = "spider-msg-" + (m.ts || Date.now()) + ".md";
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 5000);
   toast("صُدّرت الرسالة", "ok");
@@ -2402,12 +2439,12 @@ function editUserMsg(m){
 function downloadAsMd(){
   const c = active(); if (!c) return;
   const body = c.messages
-    .map(x => (x.role === "user" ? "**أنت:**\n\n" : "**AVETAAR (" + (x.model || "?") + "):**\n\n") + x.text + "\n\n")
+    .map(x => (x.role === "user" ? "**أنت:**\n\n" : "**SPIDER (" + (x.model || "?") + "):**\n\n") + x.text + "\n\n")
     .join("---\n\n");
   const blob = new Blob([body], { type: "text/markdown;charset=utf-8" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "avetaar-chat-" + (c.title || "chat").slice(0, 24) + ".md";
+  a.download = "spider-chat-" + (c.title || "chat").slice(0, 24) + ".md";
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 5000);
 }
@@ -2432,6 +2469,33 @@ if (window.visualViewport) visualViewport.addEventListener("resize", () => {
 });
 
 /* ══════════ STREAM CHAT ══════════ */
+// يبني سياقاً نصياً للنماذج التي لا تستقبل messages[] مثل واجهة المدى الحالية.
+// لا يضيف الرسالة الحالية إلى السجل مرة ثانية، ويقتصر على آخر عدد محدد من الرسائل.
+function buildChatlyHistory(c, currentMessageId){
+  const depth = Math.max(1, Math.min(40, Number(settings.hist) || 10));
+  const previous = (c.messages || []).filter(m =>
+    m.id !== currentMessageId && !m.err &&
+    ((m.role === "user" && (m.text || m.attach?.length)) || (m.role === "ai" && m.text))
+  ).slice(-depth);
+  if (!previous.length) return "";
+  const lines = previous.map(m => {
+    const who = m.role === "user" ? "المستخدم" : "المساعد";
+    let content = String(m.text || "");
+    if (m.role === "user" && m.attach?.length){
+      for (const a of m.attach){
+        if (a.kind === "file" && a.text !== undefined)
+          content += "\n[محتوى ملف مرفق: " + (a.name || "ملف") + "]\n" + String(a.text).slice(0, 5000);
+        else if (a.kind === "image")
+          content += "\n[أُرفقت صورة سابقاً: " + (a.name || "صورة") + "]";
+      }
+    }
+    return who + ": " + content.slice(0, 5000);
+  });
+  // حد تقريبي للحجم حتى لا يتحول السجل إلى طلب ضخم.
+  let transcript = lines.join("\n\n");
+  if (transcript.length > 14000) transcript = transcript.slice(-14000);
+  return "السياق السابق للمحادثة (رسائل مرتبة من الأقدم إلى الأحدث). استخدمه لفهم الإشارات مثل: هذا، ذلك، إليه، نفسها، ثم تابع الطلب الحالي. لا تجب عن الطلبات القديمة من جديد إلا إذا طلب المستخدم ذلك صراحة.\n\n" + transcript;
+}
 async function sendMessage(){
   const text = $("#input").value.trim();
   if ((!text && !pending.length) || streaming) return;
@@ -2440,7 +2504,8 @@ async function sendMessage(){
   let c = active();
   if (!c){ c = { id: uid(), title:"محادثة جديدة", model: currentModel, createdAt: Date.now(), messages: [] }; chats.unshift(c); activeId = c.id; }
   c.model = currentModel;
-  c.messages.push({ id: uid(), role: "user", text, ts: Date.now(), attach: atts.length ? atts : undefined });
+  const userMsg = { id: uid(), role: "user", text, ts: Date.now(), attach: atts.length ? atts : undefined };
+  c.messages.push(userMsg);
   if (c.title === "محادثة جديدة") renameChat(c.id, (text || (atts[0] && atts[0].name) || "مرفقات").slice(0, 32));
   save(); renderList(); renderMsgs();
   $("#input").value = ""; autoGrow();
@@ -2450,7 +2515,7 @@ async function sendMessage(){
   c.messages.push(ai);
   const wrap = document.createElement("div");
   wrap.className = "msg ai";
-  wrap.innerHTML = "<div class='who'>AVETAAR " + currentModel + "</div><div class='bubble'><div class='typing'><i></i><i></i><i></i></div></div>";
+  wrap.innerHTML = "<div class='who'>SPIDER " + currentModel + "</div><div class='bubble'><div class='typing'><i></i><i></i><i></i></div></div>";
   $("#msgsInner").appendChild(wrap);
   scrollBottom(); // pin to the new user message instantly
   const bubble = wrap.querySelector(".bubble");
@@ -2480,7 +2545,7 @@ async function sendMessage(){
           for (const a of atts) if (a.kind === "image" && a.dataUrl) parts.push({ type: "image_url", image_url: { url: a.dataUrl } });
           return { role: "user", content: parts.length === 1 && parts[0].type === "text" ? parts[0].text : parts };
         });
-      const msgs = settings.sys ? [{ role: "system", content: settings.sys }, ...turns] : turns;
+      const msgs = [{ role: "system", content: buildSystemPrompt() }, ...turns];
       const r = await gamaChat(currentModel, msgs, streaming.signal);
       ai.thinking = r.thinking || "";
       ai.thinkMs = performance.now() - t0;
@@ -2504,7 +2569,11 @@ async function sendMessage(){
   }
   const ok = await ensureToken();
   if (!ok) return finishAi(ai, wrap, "تعذر الوصول للـ API (شبكة/CORS). جرب فتح الموقع من http/https.", true);
-  const body = { model: currentModel, systemContent: settings.sys, text: chatText };
+  const priorContext = buildChatlyHistory(c, userMsg.id);
+  const requestText = priorContext
+    ? "[بداية سياق المحادثة السابقة]\n" + priorContext + "\n\n[الرسالة الحالية للمستخدم]\n" + chatText
+    : chatText;
+  const body = { model: currentModel, systemContent: buildSystemPrompt(), text: requestText };
   let controller = new AbortController();
   streaming = controller; setSend(true);
   try{
@@ -2887,6 +2956,22 @@ $("#btnSend").onclick = () => streaming ? stopStream() : sendMessage();
 $("#modelPill").onclick = e => { e.stopPropagation(); $("#modelMenu").classList.toggle("open"); };
 document.addEventListener("click", e => { if (!e.target.closest(".model-select")) $("#modelMenu").classList.remove("open"); });
 $("#btnSettings").onclick = openDialog;
+// حفظ تعليمات النموذج تلقائياً عند كل تعديل
+$("#sysPrompt").addEventListener("input", function () {
+  settings.sys = this.value;
+  saveSett();
+});
+// نافذة معلومات التطبيق وهوية المطوّر
+$("#btnAbout").onclick = () => {
+  $("#scrimAbout").classList.add("open");
+  $("#dlgAbout").classList.add("open");
+};
+function closeAbout(){
+  $("#scrimAbout").classList.remove("open");
+  $("#dlgAbout").classList.remove("open");
+}
+$("#btnCloseAbout").onclick = closeAbout;
+$("#scrimAbout").onclick = closeAbout;
 $("#btnTheme").onclick = () => {
   const order = ["greenapple", "greenapple-light"];
   settings.theme = order[(order.indexOf(settings.theme) + 1) % order.length];
@@ -2929,10 +3014,10 @@ $("#segToggles").onclick = e => {
 };
 $("#selModel").onchange = e => { settings.model = e.target.value; saveSett(); currentModel = e.target.value; buildModelUI(); toast("النموذج الافتراضي: " + e.target.value, "ok"); };
 $("#btnReauth").onclick = async () => {
-  sessionStorage.removeItem("avetaar_ai_token");
+  sessionStorage.removeItem("spider_ai_token");
   token = null;
   gama.key = gama.uid = null;
-  localStorage.removeItem("avetaar_gama_key"); localStorage.removeItem("avetaar_gama_uid");
+  localStorage.removeItem("spider_gama_key"); localStorage.removeItem("spider_gama_uid");
   closeDialog();
   toast("إنشاء حسابات جديدة للـ مدى و رويند…");
   await Promise.allSettled([ ensureToken(true), ensureGama(true) ]);
@@ -2952,7 +3037,7 @@ $("#btnPing").onclick = async () => {
 $("#btnExportAll").onclick = () => {
   const blob = new Blob([JSON.stringify({ v: 2, chats, settings: { ...settings, provider: undefined } }, null, 1)], { type: "application/json" });
   const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob); a.download = "avetaar-ai-backup-" + Date.now() + ".json";
+  a.href = URL.createObjectURL(blob); a.download = "spider-ai-backup-" + Date.now() + ".json";
   a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 5000);
   toast("صَدّر " + chats.length + " محادثة", "ok");
 };
@@ -2974,25 +3059,6 @@ $("#btnWipeAll").onclick = () => {
   if (!confirm("حذف كل المحادثات نهائياً؟ (لا رجعة)")) return;
   chats = []; activeId = null; save(); renderList(); renderMsgs(); toast("حُذفت كل المحادثات", "ok");
 };
-// shortcuts dialog
-const KEYS = [
-  ["Ctrl + K", "محادثة جديدة"],
-  ["Ctrl + M", "فتح قائمة النماذج"],
-  ["؟ أو Ctrl + /", "هذه القائمة"],
-  ["Esc", "إغلاق القوائم والنوافذ"],
-  ["Enter", "إرسال"],
-  ["Shift + Enter", "سطر جديد"],
-];
-$("#btnShortcuts").onclick = openKeys;
-$("#btnKeys").onclick = openKeys;
-function openKeys(){
-  const k = $("#keysList");
-  k.innerHTML = KEYS.map(x => "<div class='key-row'><kbd>" + x[0] + "</kbd><span>" + x[1] + "</span></div>").join("");
-  $("#scrimKeys").classList.add("open"); $("#dlgKeys").classList.add("open");
-}
-function closeKeys(){ $("#scrimKeys").classList.remove("open"); $("#dlgKeys").classList.remove("open"); }
-$("#scrimKeys").onclick = closeKeys;
-$("#btnCloseKeys").onclick = closeKeys;
 // copy-code button below each code block (delegated)
 document.addEventListener("click", e => {
   const b = e.target.closest(".copy-below");
@@ -3014,7 +3080,7 @@ document.addEventListener("click", e => {
     .then(blob => {
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = "avetaar-image-" + Date.now() + "." + ext;
+      a.download = "spider-image-" + Date.now() + "." + ext;
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(a.href), 5000);
       b.textContent = "✓ تم التحميل"; b.classList.add("done");
@@ -3139,12 +3205,11 @@ async function refreshStatus(){
   el.title = "المدى " + (c.ok ? "متصل" : "غير متصل") + " · رويند " + (g.ok ? "متصل" : "مبلوك من شبكة البيانات — من جوالك/المنزل يعمل");
 }
 
-// keyboard: Ctrl+K new chat, Ctrl+M model menu, ? shortcuts
+// keyboard: Ctrl+K new chat, Ctrl+M model menu
 document.addEventListener("keydown", e => {
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k"){ e.preventDefault(); newChat(); }
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "m"){ e.preventDefault(); $("#modelMenu").classList.toggle("open"); }
-  if (e.key === "?"){ e.preventDefault(); openKeys(); }
-  if (e.key === "Escape"){ closeSidebar(); closeDialog(); closeKeys(); }
+  if (e.key === "Escape"){ closeSidebar(); closeDialog(); closeAbout(); }
 });
 
 /* ══════════ boot ══════════ */
@@ -3157,14 +3222,12 @@ document.addEventListener("keydown", e => {
   renderMsgs();
   autoGrow();
   const pv = effectiveProvider();
-  $("#hint").textContent = PROV_NAME[pv] + " · " + currentModel + " · Enter للإرسال · ? للاختصارات";
+  $("#hint").textContent = PROV_NAME[pv] + " · " + currentModel + " - spider ai";
   if ((active()?.messages.length || 0) >= 2) $("#btnChatSearch").style.display = "";
   ensureToken();          // modā: prewarm (lazy, silent)
   refreshStatus();       // provider reachability dots
 })();
 </script>
-
-
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", async () => {
