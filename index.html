@@ -1634,6 +1634,177 @@ html[data-theme] body{background:radial-gradient(ellipse at 82% -12%,color-mix(i
 @media(max-width:420px){.studio-colors{grid-template-columns:1fr}.theme-studio-entry{align-items:flex-start;flex-direction:column}.theme-studio-entry button{width:100%}}
 </style>
 
+<style>
+/* Standalone theme picker: anchored below the model/theme controls, never the settings dialog */
+#dlgThemes.theme-only-popup{
+  inset: 76px  auto auto 16px;
+  margin: 0;
+  width: min(430px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
+  max-height: calc(100dvh - 96px);
+  overflow-y: auto;
+  height: fit-content;
+  z-index: 61;
+}
+#scrimThemes{z-index:60}
+#dlgThemes .theme-only-content{margin:0}
+#dlgThemes .theme-grid{margin-top:0}
+@media(max-width:640px){
+  #dlgThemes.theme-only-popup{
+    inset: 68px 12px auto 12px;
+    width:auto;
+    max-width:none;
+    max-height:calc(100dvh - 84px);
+  }
+}
+
+/* ═══ SPIDER AI — About experience ═══ */
+.about-dialog{
+  width:min(470px, calc(100vw - 24px));
+  max-height:min(88dvh, 820px);
+  padding:0;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+}
+.about-hero{
+  position:relative; overflow:hidden; text-align:center;
+  padding:25px 22px 22px;
+  background:
+    radial-gradient(ellipse at 50% 0%, color-mix(in srgb,var(--primary) 30%,transparent),transparent 72%),
+    linear-gradient(145deg,color-mix(in srgb,var(--surface-container-high) 95%,transparent),var(--surface-container-lowest));
+  border-bottom:1px solid var(--rim-normal);
+}
+.about-hero::before,.about-hero::after{
+  content:"";position:absolute;width:170px;height:170px;border:1px solid color-mix(in srgb,var(--primary) 16%,transparent);
+  border-radius:50%;pointer-events:none;
+}
+.about-hero::before{top:-112px;right:-75px;box-shadow:0 0 0 18px color-mix(in srgb,var(--primary) 4%,transparent),0 0 0 38px color-mix(in srgb,var(--primary) 3%,transparent)}
+.about-hero::after{bottom:-140px;left:-80px}
+.about-mark{
+  width:64px;height:64px;margin:0 auto 12px;display:grid;place-items:center;
+  border-radius:21px;color:var(--primary);
+  background:color-mix(in srgb,var(--primary) 12%,var(--surface));
+  border:1px solid color-mix(in srgb,var(--primary) 38%,transparent);
+  box-shadow:0 0 28px color-mix(in srgb,var(--primary) 20%,transparent);
+}
+.about-mark svg{width:48px;height:48px}
+.about-kicker{font-size:9px;letter-spacing:2px;color:var(--text-secondary);font-weight:800}
+.about-hero h2{margin:5px 0 0!important;font-size:29px!important;letter-spacing:1.4px;color:var(--text-primary)}
+.about-hero h2 span{color:var(--primary)}
+.about-tagline{margin:0 0 8px;color:var(--primary);font-size:13px;font-weight:800}
+.about-intro{max-width:350px;margin:0 auto!important;color:var(--text-secondary);font-size:12px;line-height:1.9}
+.about-section{padding:17px 19px 5px}
+.about-section h3{margin:0 0 12px;font-size:13px;color:var(--text-primary)}
+.about-section h3 span{color:var(--primary);margin-left:5px}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.about-feature{
+  min-width:0;display:flex;align-items:flex-start;gap:9px;padding:10px;
+  border:1px solid var(--rim-normal);border-radius:13px;background:var(--control-container)
+}
+.about-feature i{
+  flex:none;width:28px;height:28px;display:grid;place-items:center;border-radius:9px;
+  color:var(--primary);background:color-mix(in srgb,var(--primary) 13%,transparent);
+  font-style:normal;font-size:15px;font-weight:800
+}
+.about-feature b{display:block;font-size:11px;color:var(--text-primary);margin:1px 0 3px}
+.about-feature small{display:block;font-size:9.5px;line-height:1.65;color:var(--text-secondary)}
+.about-vision{
+  margin:13px 19px;padding:13px 14px;border-radius:14px;
+  border:1px solid color-mix(in srgb,var(--primary) 24%,var(--rim-normal));
+  background:linear-gradient(120deg,color-mix(in srgb,var(--primary) 10%,var(--control-container)),var(--control-container))
+}
+.about-section-title{font-size:12px;font-weight:900;color:var(--primary);margin-bottom:5px}
+.about-vision p{margin:0;color:var(--text-primary);font-size:11px;line-height:1.8}
+.about-quote{margin-top:8px;padding-top:8px;border-top:1px solid var(--divider);font-size:11px;font-weight:800;color:var(--text-secondary)}
+.about-developer-card{
+  margin:0 19px;padding:14px;text-align:center;border:1px solid color-mix(in srgb,var(--primary) 35%,var(--rim-normal));
+  border-radius:16px;background:radial-gradient(ellipse at 50% 0%,color-mix(in srgb,var(--primary) 14%,transparent),transparent 75%),var(--control-container)
+}
+.about-dev-label{font-size:8px;letter-spacing:1.7px;color:var(--text-secondary);font-weight:800}
+.about-developer-card strong{display:block;margin:4px 0;font-size:25px;letter-spacing:3px;color:var(--primary)}
+.about-developer-card span{font-size:11px;font-weight:800;color:var(--text-primary)}
+.about-developer-card p{max-width:330px;margin:5px auto 0;font-size:10px;line-height:1.8;color:var(--text-secondary)}
+.about-signature{text-align:center;padding:13px 12px 2px}
+.about-signature b{display:block;font-size:8px;letter-spacing:1px;color:var(--primary)}
+.about-signature small{display:block;margin-top:4px;font-size:9px;color:var(--text-secondary)}
+.about-dialog .dlg-actions{margin:12px 19px 17px;padding-top:10px}
+.about-dialog .dlg-actions button{min-width:100px}
+@media(max-width:390px){
+ .about-dialog{width:calc(100vw - 16px)}
+ .about-hero{padding:20px 16px 18px}
+ .about-section{padding-inline:14px}
+ .about-vision,.about-developer-card{margin-inline:14px}
+ .about-features{gap:6px}
+ .about-feature{padding:8px;gap:7px}
+ .about-feature small{font-size:9px}
+}
+
+
+/* SPIDER AI — subtle live atmosphere behind conversation messages */
+#msgs{isolation:isolate;position:relative}
+#fxCanvas{position:fixed;z-index:0;pointer-events:none;display:block;opacity:.72}
+#msgsInner{position:relative;z-index:1}
+.fx-top-btn{position:relative;overflow:visible}
+.fx-top-btn.fx-active{color:var(--primary);border-color:var(--primary);box-shadow:0 0 0 1px color-mix(in srgb,var(--primary) 22%,transparent),0 0 14px color-mix(in srgb,var(--primary) 18%,transparent)}
+.fx-panel{position:absolute;z-index:30;inset-block-start:calc(100% + 9px);inset-inline-end:12px;width:min(310px,calc(100vw - 24px));padding:14px;border:1px solid var(--rim-normal);border-radius:17px;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 18px 55px rgba(0,0,0,.28);color:var(--text-primary)}
+.fx-panel[hidden]{display:none!important}
+.fx-panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.fx-panel-head>div{display:grid;gap:3px}.fx-panel-head b{font-size:13px}.fx-panel-head small,.fx-note{font-size:10px;color:var(--text-secondary)}
+#fxClose{width:28px;height:28px;border:0;border-radius:9px;background:var(--control-container);color:var(--text-primary);font-size:20px;line-height:1}
+.fx-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.fx-option{display:flex;align-items:center;justify-content:center;gap:5px;min-height:38px;padding:7px 5px;border:1px solid var(--divider);border-radius:10px;background:var(--control-container);color:var(--text-primary);font-size:11px;font-weight:750}
+.fx-option span{font-size:14px}.fx-option.active{border-color:var(--primary);background:var(--selection-container);color:var(--primary);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--primary) 20%,transparent)}
+.fx-range-row{display:flex;align-items:center;gap:12px;margin-top:13px}.fx-range-row label{flex:0 0 88px;font-size:11px;color:var(--text-secondary)}.fx-range-row input{width:100%;accent-color:var(--primary)}
+.fx-note{display:block;margin-top:12px;line-height:1.7}
+@media(max-width:640px){.fx-panel{inset-inline-end:5px;width:min(300px,calc(100vw - 16px))}.fx-top-btn{width:34px;height:34px;flex-basis:34px;border-radius:10px}}
+@media(max-width:380px){.fx-top-btn{width:32px;height:32px;flex-basis:32px}}
+@media(prefers-reduced-motion:reduce){#fxCanvas{display:none}}
+
+
+/* SPIDER AI centered brand header; chat titles remain available to the sidebar logic. */
+.topbar { position:relative; }
+.topbar .ttl#chatTitle { display:none !important; }
+.topbar .brand-center {
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  z-index:1;
+  pointer-events:none;
+  direction:ltr;
+  white-space:nowrap;
+  font-size:clamp(12px, 1.18vw, 16px);
+  line-height:1;
+  font-weight:900;
+  letter-spacing:clamp(1.4px, .22vw, 2.8px);
+  color:var(--text-primary);
+  text-shadow:
+    0 0 7px color-mix(in srgb, var(--primary) 65%, transparent),
+    0 0 18px color-mix(in srgb, var(--primary) 35%, transparent);
+}
+.topbar .brand-center::after {
+  content:"";
+  display:block;
+  height:2px;
+  width:58%;
+  margin:5px auto 0;
+  border-radius:99px;
+  background:linear-gradient(90deg,transparent,var(--primary),var(--secondary),transparent);
+  opacity:.9;
+}
+@media (max-width:640px) {
+  .topbar .brand-center {
+    font-size:12px;
+    letter-spacing:1.25px;
+    text-shadow:0 0 7px color-mix(in srgb, var(--primary) 55%, transparent);
+  }
+}
+@media (max-width:380px) {
+  .topbar .brand-center { font-size:10.5px; letter-spacing:1px; }
+}
+
+</style>
+  
 </head>
 <body>
 
@@ -1891,6 +2062,8 @@ html[data-theme] body{background:radial-gradient(ellipse at 82% -12%,color-mix(i
 
   <div class="about-signature">
     <b>DESIGNED &amp; DEVELOPED BY SPIDERXR</b>
+        <b>instagram &amp; @ spiderxr7</b>
+    
     <small>© 2026 SPIDERXR. All Rights Reserved.</small>
   </div>
   <div class="dlg-actions"><button class="btn-ghost" id="btnCloseAbout">إغلاق</button></div>
@@ -3653,176 +3826,7 @@ document.addEventListener("keydown", e => {
 </body>
 </html>
 
-<style>
-/* Standalone theme picker: anchored below the model/theme controls, never the settings dialog */
-#dlgThemes.theme-only-popup{
-  inset: 76px  auto auto 16px;
-  margin: 0;
-  width: min(430px, calc(100vw - 24px));
-  max-width: calc(100vw - 24px);
-  max-height: calc(100dvh - 96px);
-  overflow-y: auto;
-  height: fit-content;
-  z-index: 61;
-}
-#scrimThemes{z-index:60}
-#dlgThemes .theme-only-content{margin:0}
-#dlgThemes .theme-grid{margin-top:0}
-@media(max-width:640px){
-  #dlgThemes.theme-only-popup{
-    inset: 68px 12px auto 12px;
-    width:auto;
-    max-width:none;
-    max-height:calc(100dvh - 84px);
-  }
-}
 
-/* ═══ SPIDER AI — About experience ═══ */
-.about-dialog{
-  width:min(470px, calc(100vw - 24px));
-  max-height:min(88dvh, 820px);
-  padding:0;
-  overflow-x:hidden;
-  scrollbar-width:thin;
-}
-.about-hero{
-  position:relative; overflow:hidden; text-align:center;
-  padding:25px 22px 22px;
-  background:
-    radial-gradient(ellipse at 50% 0%, color-mix(in srgb,var(--primary) 30%,transparent),transparent 72%),
-    linear-gradient(145deg,color-mix(in srgb,var(--surface-container-high) 95%,transparent),var(--surface-container-lowest));
-  border-bottom:1px solid var(--rim-normal);
-}
-.about-hero::before,.about-hero::after{
-  content:"";position:absolute;width:170px;height:170px;border:1px solid color-mix(in srgb,var(--primary) 16%,transparent);
-  border-radius:50%;pointer-events:none;
-}
-.about-hero::before{top:-112px;right:-75px;box-shadow:0 0 0 18px color-mix(in srgb,var(--primary) 4%,transparent),0 0 0 38px color-mix(in srgb,var(--primary) 3%,transparent)}
-.about-hero::after{bottom:-140px;left:-80px}
-.about-mark{
-  width:64px;height:64px;margin:0 auto 12px;display:grid;place-items:center;
-  border-radius:21px;color:var(--primary);
-  background:color-mix(in srgb,var(--primary) 12%,var(--surface));
-  border:1px solid color-mix(in srgb,var(--primary) 38%,transparent);
-  box-shadow:0 0 28px color-mix(in srgb,var(--primary) 20%,transparent);
-}
-.about-mark svg{width:48px;height:48px}
-.about-kicker{font-size:9px;letter-spacing:2px;color:var(--text-secondary);font-weight:800}
-.about-hero h2{margin:5px 0 0!important;font-size:29px!important;letter-spacing:1.4px;color:var(--text-primary)}
-.about-hero h2 span{color:var(--primary)}
-.about-tagline{margin:0 0 8px;color:var(--primary);font-size:13px;font-weight:800}
-.about-intro{max-width:350px;margin:0 auto!important;color:var(--text-secondary);font-size:12px;line-height:1.9}
-.about-section{padding:17px 19px 5px}
-.about-section h3{margin:0 0 12px;font-size:13px;color:var(--text-primary)}
-.about-section h3 span{color:var(--primary);margin-left:5px}
-.about-features{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.about-feature{
-  min-width:0;display:flex;align-items:flex-start;gap:9px;padding:10px;
-  border:1px solid var(--rim-normal);border-radius:13px;background:var(--control-container)
-}
-.about-feature i{
-  flex:none;width:28px;height:28px;display:grid;place-items:center;border-radius:9px;
-  color:var(--primary);background:color-mix(in srgb,var(--primary) 13%,transparent);
-  font-style:normal;font-size:15px;font-weight:800
-}
-.about-feature b{display:block;font-size:11px;color:var(--text-primary);margin:1px 0 3px}
-.about-feature small{display:block;font-size:9.5px;line-height:1.65;color:var(--text-secondary)}
-.about-vision{
-  margin:13px 19px;padding:13px 14px;border-radius:14px;
-  border:1px solid color-mix(in srgb,var(--primary) 24%,var(--rim-normal));
-  background:linear-gradient(120deg,color-mix(in srgb,var(--primary) 10%,var(--control-container)),var(--control-container))
-}
-.about-section-title{font-size:12px;font-weight:900;color:var(--primary);margin-bottom:5px}
-.about-vision p{margin:0;color:var(--text-primary);font-size:11px;line-height:1.8}
-.about-quote{margin-top:8px;padding-top:8px;border-top:1px solid var(--divider);font-size:11px;font-weight:800;color:var(--text-secondary)}
-.about-developer-card{
-  margin:0 19px;padding:14px;text-align:center;border:1px solid color-mix(in srgb,var(--primary) 35%,var(--rim-normal));
-  border-radius:16px;background:radial-gradient(ellipse at 50% 0%,color-mix(in srgb,var(--primary) 14%,transparent),transparent 75%),var(--control-container)
-}
-.about-dev-label{font-size:8px;letter-spacing:1.7px;color:var(--text-secondary);font-weight:800}
-.about-developer-card strong{display:block;margin:4px 0;font-size:25px;letter-spacing:3px;color:var(--primary)}
-.about-developer-card span{font-size:11px;font-weight:800;color:var(--text-primary)}
-.about-developer-card p{max-width:330px;margin:5px auto 0;font-size:10px;line-height:1.8;color:var(--text-secondary)}
-.about-signature{text-align:center;padding:13px 12px 2px}
-.about-signature b{display:block;font-size:8px;letter-spacing:1px;color:var(--primary)}
-.about-signature small{display:block;margin-top:4px;font-size:9px;color:var(--text-secondary)}
-.about-dialog .dlg-actions{margin:12px 19px 17px;padding-top:10px}
-.about-dialog .dlg-actions button{min-width:100px}
-@media(max-width:390px){
- .about-dialog{width:calc(100vw - 16px)}
- .about-hero{padding:20px 16px 18px}
- .about-section{padding-inline:14px}
- .about-vision,.about-developer-card{margin-inline:14px}
- .about-features{gap:6px}
- .about-feature{padding:8px;gap:7px}
- .about-feature small{font-size:9px}
-}
-
-
-/* SPIDER AI — subtle live atmosphere behind conversation messages */
-#msgs{isolation:isolate;position:relative}
-#fxCanvas{position:fixed;z-index:0;pointer-events:none;display:block;opacity:.72}
-#msgsInner{position:relative;z-index:1}
-.fx-top-btn{position:relative;overflow:visible}
-.fx-top-btn.fx-active{color:var(--primary);border-color:var(--primary);box-shadow:0 0 0 1px color-mix(in srgb,var(--primary) 22%,transparent),0 0 14px color-mix(in srgb,var(--primary) 18%,transparent)}
-.fx-panel{position:absolute;z-index:30;inset-block-start:calc(100% + 9px);inset-inline-end:12px;width:min(310px,calc(100vw - 24px));padding:14px;border:1px solid var(--rim-normal);border-radius:17px;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 18px 55px rgba(0,0,0,.28);color:var(--text-primary)}
-.fx-panel[hidden]{display:none!important}
-.fx-panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
-.fx-panel-head>div{display:grid;gap:3px}.fx-panel-head b{font-size:13px}.fx-panel-head small,.fx-note{font-size:10px;color:var(--text-secondary)}
-#fxClose{width:28px;height:28px;border:0;border-radius:9px;background:var(--control-container);color:var(--text-primary);font-size:20px;line-height:1}
-.fx-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
-.fx-option{display:flex;align-items:center;justify-content:center;gap:5px;min-height:38px;padding:7px 5px;border:1px solid var(--divider);border-radius:10px;background:var(--control-container);color:var(--text-primary);font-size:11px;font-weight:750}
-.fx-option span{font-size:14px}.fx-option.active{border-color:var(--primary);background:var(--selection-container);color:var(--primary);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--primary) 20%,transparent)}
-.fx-range-row{display:flex;align-items:center;gap:12px;margin-top:13px}.fx-range-row label{flex:0 0 88px;font-size:11px;color:var(--text-secondary)}.fx-range-row input{width:100%;accent-color:var(--primary)}
-.fx-note{display:block;margin-top:12px;line-height:1.7}
-@media(max-width:640px){.fx-panel{inset-inline-end:5px;width:min(300px,calc(100vw - 16px))}.fx-top-btn{width:34px;height:34px;flex-basis:34px;border-radius:10px}}
-@media(max-width:380px){.fx-top-btn{width:32px;height:32px;flex-basis:32px}}
-@media(prefers-reduced-motion:reduce){#fxCanvas{display:none}}
-
-
-/* SPIDER AI centered brand header; chat titles remain available to the sidebar logic. */
-.topbar { position:relative; }
-.topbar .ttl#chatTitle { display:none !important; }
-.topbar .brand-center {
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  z-index:1;
-  pointer-events:none;
-  direction:ltr;
-  white-space:nowrap;
-  font-size:clamp(12px, 1.18vw, 16px);
-  line-height:1;
-  font-weight:900;
-  letter-spacing:clamp(1.4px, .22vw, 2.8px);
-  color:var(--text-primary);
-  text-shadow:
-    0 0 7px color-mix(in srgb, var(--primary) 65%, transparent),
-    0 0 18px color-mix(in srgb, var(--primary) 35%, transparent);
-}
-.topbar .brand-center::after {
-  content:"";
-  display:block;
-  height:2px;
-  width:58%;
-  margin:5px auto 0;
-  border-radius:99px;
-  background:linear-gradient(90deg,transparent,var(--primary),var(--secondary),transparent);
-  opacity:.9;
-}
-@media (max-width:640px) {
-  .topbar .brand-center {
-    font-size:12px;
-    letter-spacing:1.25px;
-    text-shadow:0 0 7px color-mix(in srgb, var(--primary) 55%, transparent);
-  }
-}
-@media (max-width:380px) {
-  .topbar .brand-center { font-size:10.5px; letter-spacing:1px; }
-}
-
-</style>
 
 
 <script>
