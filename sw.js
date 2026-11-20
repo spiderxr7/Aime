@@ -5,8 +5,8 @@ const APP_FILES = [
   "./",
   "./index.html",
   "./manifest.json",
-  "./icons/icon1.jpeg",
-  "./icons/icon2.jpeg"
+  "./icons/icon1.png",
+  "./icons/icon2.png"
 ];
 
 // تثبيت الملفات الأساسية وحفظها
